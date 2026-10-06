@@ -1,0 +1,7 @@
+﻿venv/
+data/
+*.pkl
+*.pt
+.env
+__pycache__/
+mlruns/
