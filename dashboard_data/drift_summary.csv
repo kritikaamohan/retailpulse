@@ -1,0 +1,3 @@
+batch,drifted_features,share,alert
+real_test,1,0.091,False
+simulated_drift,6,0.545,True
