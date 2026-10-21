@@ -103,7 +103,7 @@ python src/retrain.py
 - The Airflow DAG and Kubernetes manifests are written but were not run.
 
 ## Author
-```bash
+
 Kritika Mohan
-```
+
 <!-- WRITE: your name and the date -->
