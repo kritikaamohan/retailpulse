@@ -46,6 +46,43 @@ c4.metric("Units sold", f"{units:,}")
 st.caption(f"Whole period: {int(static['customers']):,} customers and "
            f"{int(static['products']):,} products (these two do not change with the filters).")
 
+@st.cache_data
+def load_alerts():
+    inv = pd.read_csv(DATA / "inventory_recommendations.csv")
+    churn = pd.read_csv(DATA / "churn_scores.csv")
+    drift = pd.read_csv(DATA / "drift_summary.csv")
+    return inv, churn, drift
+
+
+inv, churn, drift = load_alerts()
+
+st.subheader("🔔 Alerts")
+a1, a2, a3 = st.columns(3)
+
+at_risk = int((churn["ChurnProb"] >= 0.70).sum())
+with a1:
+    st.warning(f"**{at_risk:,} customers** have a churn probability of 70% or more.")
+    st.caption("See Segments & Churn for the list.")
+
+inv = inv.assign(StockPct=inv["CurrentStock"] / inv["ReorderPoint"] * 100)
+low = inv[inv["Status"] == "Reorder"].sort_values("StockPct")
+with a2:
+    if len(low):
+        worst = low.iloc[0]
+        st.error(f"**{len(low)} products** are at or below their reorder point. "
+                 f"Lowest: {worst['StockCode']} at {worst['StockPct']:.0f}% of its reorder point.")
+    else:
+        st.success("No products are below their reorder point.")
+    st.caption("Stock levels are simulated.")
+
+real = drift[drift["batch"] == "real_test"]
+with a3:
+    if len(real) and bool(real.iloc[0]["alert"]):
+        st.error(f"Data drift alert: {real.iloc[0]['share'] * 100:.0f}% of features drifted.")
+    else:
+        share = real.iloc[0]["share"] * 100 if len(real) else 0
+        st.success(f"No data drift alert ({share:.0f}% of features drifted, threshold 30%).")
+    st.caption("See Monitoring for the Evidently reports.")
 st.divider()
 
 # Daily revenue
@@ -70,3 +107,5 @@ st.dataframe(top.assign(Revenue=top["Revenue"].round(0)), hide_index=True)
 
 st.download_button("Download filtered daily data (CSV)",
                    view.to_csv(index=False).encode(), "retailpulse_filtered.csv", "text/csv")
+st.sidebar.link_button("View code on GitHub", "https://github.com/kritikaamohan/retailpulse")
+st.sidebar.link_button("Fork this project", "https://github.com/kritikaamohan/retailpulse/fork")
