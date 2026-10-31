@@ -4,9 +4,9 @@
 
 **TODO (2-3 sentences in your own words): what problem does RetailPulse solve, and who would use it?**
 
-| **Live demo:** | https://retailpulse-kritikamohan.streamlit.app/ |
-| **Demo video:** | TODO add the link after you upload it |
-| **Project report:** | TODO add the PDF to the repo (or a link) if you want |
+- **Live demo:** https://retailpulse-kritikamohan.streamlit.app/
+- **Demo video:** TODO add the link after you upload it
+- **Project report:** TODO add the PDF to the repo (or a link)
 
 ![Overview](reports/figures/20_live_overview.jpeg)
 
