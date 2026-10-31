@@ -61,7 +61,7 @@ a1, a2, a3 = st.columns(3)
 
 at_risk = int((churn["ChurnProb"] >= 0.70).sum())
 with a1:
-    st.warning(f"**{at_risk:,} customers** have a churn probability of 70% or more.")
+    st.warning(f"**{at_risk:,} customers** had a churn probability of 70% or more (scored as of 9 Sep 2011).")
     st.caption("See Segments & Churn for the list.")
 
 inv = inv.assign(StockPct=inv["CurrentStock"] / inv["ReorderPoint"] * 100)
@@ -107,5 +107,3 @@ st.dataframe(top.assign(Revenue=top["Revenue"].round(0)), hide_index=True)
 
 st.download_button("Download filtered daily data (CSV)",
                    view.to_csv(index=False).encode(), "retailpulse_filtered.csv", "text/csv")
-st.sidebar.link_button("View code on GitHub", "https://github.com/kritikaamohan/retailpulse")
-st.sidebar.link_button("Fork this project", "https://github.com/kritikaamohan/retailpulse/fork")
