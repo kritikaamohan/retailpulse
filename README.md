@@ -8,7 +8,7 @@
 **Demo video:** TODO add the link after you upload it
 **Project report:** TODO add the PDF to the repo (or a link) if you want
 
-![Overview](reports/figures/20_live_overview.png)
+![Overview](reports/figures/20_live_overview.jpeg)
 
 ## Features
 
