@@ -5,8 +5,8 @@
 **TODO (2-3 sentences in your own words): what problem does RetailPulse solve, and who would use it?**
 
 - **Live demo:** https://retailpulse-kritikamohan.streamlit.app/
-- **Demo video:** TODO add the link after you upload it
-- **Project report:** TODO add the PDF to the repo (or a link)
+- **Demo video:** (paste your link after you upload it)
+- **Project report:** reports/RetailPulse_Report.pdf
 
 ![Overview](reports/figures/20_live_overview.jpeg)
 
@@ -14,7 +14,7 @@
 
 | Page | What it does |
 |---|---|
-| Overview | KPIs, daily revenue, top countries and products, with date and country filters |
+| Overview | KPIs, alerts (at-risk customers, reorder, drift), daily revenue, top countries and products, with date and country filters |
 | Demand Forecast | 30-day revenue forecast, model comparison, promo-lift what-if slider |
 | Segments & Churn | 6 RFM customer segments; churn risk list with SHAP explanations |
 | Inventory | Reorder points, safety stock, EOQ and a policy simulation |
@@ -59,7 +59,16 @@ Stock levels and supplier lead times on the Inventory page are **simulated**, be
 | Prophet + Saturday rule | 20.83% | 19.80% |
 | **Prophet tuned + Saturday rule (final)** | **19.34%** | **19.49%** |
 
-MAPE is computed on trading days only, because the shop is closed on Saturdays and the actual value is zero. On three earlier 30-day validation windows the daily MAPE averages about 32%, so the test result is on the favourable side. Weekly (7-day total) MAPE is 9.9% on the test window and 17.5% on average across the validation windows (4 weeks each, so a rough indication).
+Error by forecast horizon (first N days of the same forecast):
+
+| Horizon | MAPE | WAPE |
+|---|---|---|
+| 7 days | 14.30% | 18.76% |
+| 14 days | 14.21% | 16.76% |
+| 21 days | 18.91% | 18.80% |
+| 30 days | 19.34% | 19.49% |
+
+MAPE is computed on trading days only, because the shop is closed on Saturdays and the actual value is zero. On three earlier 30-day validation windows the daily MAPE averages about 32%, so the test window is the easier one. Weekly (7-day total) MAPE is 9.9% on the test window and 17.5% on average across the validation windows (4 weeks each, a rough indication).
 
 **Churn prediction** (no purchase in the 90 days after the cutoff date):
 
@@ -68,9 +77,8 @@ MAPE is computed on trading days only, because the shop is closed on Saturdays a
 | Random split, test set (cutoff 2011-09-09) | 0.714 | 0.658 |
 | Cross-validation (training data) | 0.780 | n/a |
 | Out-of-time: trained on 12 earlier cutoffs, tested on 2011-09-09 | 0.768 | 0.686 |
-| Project targets | 0.88 | 0.75 |
 
-The base churn rate is 38.5%, so precision@top 20% of 0.686 is about 1.8 times better than random.
+The base churn rate is 38.5%, so precision@top 20% of 0.686 is about 1.8 times better than a random pick. The brief's targets were AUC 0.88 and precision 0.75.
 
 **Customer segments:** 5,852 customers in 6 segments. The 472 Champions (8.1%) account for 54.4% of the revenue from identified customers.
 
@@ -122,10 +130,10 @@ python src/retrain.py
 ## Limitations
 
 - Stock levels and lead times are simulated, because the data has no inventory records.
-- Forecast MAPE (19.34% on test, about 32% on earlier windows) and churn AUC (0.714 random split, 0.768 out-of-time) are below the project targets.
+- Forecast MAPE (19.34% on test, about 32% on earlier windows) and churn AUC (0.714 random split, 0.768 out-of-time) are below the brief's targets.
 - Churn was evaluated at a single future cutoff date, in the busy autumn period.
 - The what-if slider scales the forecast and is a scenario, not a trained promotion model.
-- The Airflow DAG and Kubernetes manifests are written but were not run. Prometheus and Grafana were not built.
+- The data has no cost information, so only revenue is analyzed.
 
 ## Author
 
