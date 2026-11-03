@@ -119,7 +119,7 @@ pip install -r requirements-dev.txt
 streamlit run app/main.py
 ```
 
-To rebuild the results, download [Online Retail II](https://archive.ics.uci.edu/dataset/502/online+retail+ii) as `data/raw/online_retail_II.csv`, run the notebooks in order (01 to 06), then:
+To rebuild the results, download [Online Retail II]([https://archive.ics.uci.edu/dataset/502/online+retail+ii](https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci)) as `data/raw/online_retail_II.csv`, run the notebooks in order (01 to 06), then:
 
 ```bash
 python src/make_dashboard_data.py
