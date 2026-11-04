@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/kritikaamohan/retailpulse/actions/workflows/ci.yml/badge.svg)
 
-**TODO (2-3 sentences in your own words): what problem does RetailPulse solve, and who would use it?**
+**Retail shops lose money when popular items run out and when slow items pile up. RetailPulse uses two years of real transactions to forecast daily revenue, group customers into segments, flag customers likely to leave, and suggest reorder quantities. It is meant for inventory planners, marketing teams and managers, and the results are in a live dashboard.**
 
 - **Live demo:** https://retailpulse-kritikamohan.streamlit.app/
 - **Demo video:** (paste your link after you upload it)
@@ -20,7 +20,7 @@
 | Inventory | Reorder points, safety stock, EOQ and a policy simulation |
 | Monitoring | Evidently drift reports and a drift simulator |
 
-**TODO (1 sentence): what are you proudest of in this project?**
+**I am proudest of the drift loop: when I shift customer behaviour on purpose, the dashboard raises an alert and my script retrains and logs the model.**
 
 ## Architecture
 
@@ -42,7 +42,7 @@ Online Retail II (UCI): a UK online retailer, December 2009 to December 2011, 1,
 
 About 23% of rows have no customer ID. They are kept for demand forecasting and excluded from customer models (5,852 customers).
 
-**TODO (2-3 sentences): why you made these cleaning choices.**
+**I removed rows that are not real product sales: cancellations, stock adjustments with a price of zero, and fee codes such as postage. I kept rows without a customer ID for forecasting, because total demand doesn’t need a customer, and left them out of the customer models. I counted the rows removed by each rule so every cleaning decision can be checked.**
 
 Stock levels and supplier lead times on the Inventory page are **simulated**, because the dataset has no inventory records. The dataset also has no cost data, so only revenue is analyzed.
 
@@ -86,7 +86,7 @@ The base churn rate is 38.5%, so precision@top 20% of 0.686 is about 1.8 times b
 
 **Drift monitoring:** 29% of features flagged on real data (no retraining); 71% on simulated drift (retraining triggered).
 
-**TODO (2-3 sentences, honest): which targets were missed (forecast MAPE, churn AUC and precision) and why.**
+**My results are below the brief’s targets: forecast MAPE is 19.34% against 12%, and churn AUC is 0.71 to 0.77 against 0.88. Daily revenue swings a lot because of large wholesale orders and the Saturday closures, and the data covers only two years, which probably limits both models. I reported the numbers as measured, including validation windows where the error was higher.**
 
 ## Tech stack
 
