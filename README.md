@@ -5,8 +5,6 @@
 **Retail shops lose money when popular items run out and when slow items pile up. RetailPulse uses two years of real transactions to forecast daily revenue, group customers into segments, flag customers likely to leave, and suggest reorder quantities. It is meant for inventory planners, marketing teams and managers, and the results are in a live dashboard.**
 
 - **Live demo:** https://retailpulse-kritikamohan.streamlit.app/
-- **Demo video:** (paste your link after you upload it)
-- **Project report:** reports/RetailPulse_Report.pdf
 
 ![Overview](reports/figures/20_live_overview.jpeg)
 
